@@ -22,8 +22,8 @@ a cifra de Vigenère usa uma série de diferentes substituições baseadas em um
 
 **Uso**: 
 ```
-> python.exe .\vinegere-cipher.py 1 "Texto para criptografar" "CHAOS" 
+$ python vinegere-cipher.py 1 "Texto para criptografar" "CHAOS" 
 Texto cifrado: VLXHG RHRO UTPPHGIYATST
-> python.exe .\vinegere-cipher.py 2 "VLXHG RHRO UTPPHGIYATST" "CHAOS"
+$ python vinegere-cipher.py 2 "VLXHG RHRO UTPPHGIYATST" "CHAOS"
 Texto decifrado: TEXTO PARA CRIPTOGRAFAR
 ```
