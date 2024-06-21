@@ -21,7 +21,9 @@ a cifra de Vigenère usa uma série de diferentes substituições baseadas em um
 - A 22ª letra do alfabeto é "V".
 
 **Uso**: 
+```
 > python.exe .\vinegere-cipher.py 1 "Texto para criptografar" "CHAOS" 
 Texto cifrado: VLXHG RHRO UTPPHGIYATST
 > python.exe .\vinegere-cipher.py 2 "VLXHG RHRO UTPPHGIYATST" "CHAOS"
 Texto decifrado: TEXTO PARA CRIPTOGRAFAR
+```
