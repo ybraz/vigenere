@@ -24,65 +24,70 @@ Descriptografia:
 - A 22ª letra do alfabeto é "V".
 '''
 
-import sys
+import sys  # Importa o módulo sys para acessar os argumentos da linha de comando
 
+# Função para criptografar uma mensagem usando a cifra de Vigenère
 def encrypt_vigenere(plaintext, keyword):
-    plaintext = plaintext.upper()
-    keyword = keyword.upper().replace(" ", "")
+    plaintext = plaintext.upper()  # Converte o texto para maiúsculas
+    keyword = keyword.upper().replace(" ", "")  # Converte a palavra-chave para maiúsculas e remove espaços
+    # Repete a palavra-chave para cobrir o comprimento do texto
     keyword_repeated = (keyword * ((len(plaintext.replace(" ", "")) // len(keyword)) + 1))[:len(plaintext.replace(" ", ""))]
     
-    ciphertext = ""
-    keyword_index = 0
-    for p in plaintext:
+    ciphertext = ""  # Inicializa o texto cifrado
+    keyword_index = 0  # Índice da palavra-chave
+    for p in plaintext:  # Itera sobre cada letra do texto
         if p == " ":
-            ciphertext += " "
+            ciphertext += " "  # Mantém os espaços no texto cifrado
         else:
-            p_val = ord(p) - ord('A')
-            k_val = ord(keyword_repeated[keyword_index]) - ord('A')
-            c_val = (p_val + k_val) % 26
-            ciphertext += chr(c_val + ord('A'))
+            p_val = ord(p) - ord('A')  # Converte a letra do texto para um valor numérico
+            k_val = ord(keyword_repeated[keyword_index]) - ord('A')  # Converte a letra da palavra-chave para um valor numérico
+            c_val = (p_val + k_val) % 26  # Calcula o valor da letra cifrada
+            ciphertext += chr(c_val + ord('A'))  # Converte o valor numérico de volta para uma letra
             keyword_index += 1
     
-    return ciphertext
+    return ciphertext  # Retorna o texto cifrado
 
+# Função para descriptografar uma mensagem usando a cifra de Vigenère
 def decrypt_vigenere(ciphertext, keyword):
-    ciphertext = ciphertext.upper()
-    keyword = keyword.upper().replace(" ", "")
-    keyword_repeated = (keyword * ((len(ciphertext.replace(" ", "")) // len(keyword)) + 1))[:len(ciphertext.replace(" ", ""))]
+    ciphertext = ciphertext.upper()  # Converte o texto cifrado para maiúsculas
+    keyword = keyword.upper().replace(" ", "")  # Converte a palavra-chave para maiúsculas e remove espaços
+    # Repete a palavra-chave para cobrir o comprimento do texto cifrado
+    keyword_repeated = (keyword * ((len(ciphertext.replace(" ", "")) // len(keyword)) + 1))[:len(ciphertext)]
     
-    plaintext = ""
-    keyword_index = 0
-    for c in ciphertext:
+    plaintext = ""  # Inicializa o texto decifrado
+    keyword_index = 0  # Índice da palavra-chave
+    for c in ciphertext:  # Itera sobre cada letra do texto cifrado
         if c == " ":
-            plaintext += " "
+            plaintext += " "  # Mantém os espaços no texto decifrado
         else:
-            c_val = ord(c) - ord('A')
-            k_val = ord(keyword_repeated[keyword_index]) - ord('A')
-            p_val = (c_val - k_val + 26) % 26
-            plaintext += chr(p_val + ord('A'))
+            c_val = ord(c) - ord('A')  # Converte a letra cifrada para um valor numérico
+            k_val = ord(keyword_repeated[keyword_index]) - ord('A')  # Converte a letra da palavra-chave para um valor numérico
+            p_val = (c_val - k_val + 26) % 26  # Calcula o valor da letra decifrada
+            plaintext += chr(p_val + ord('A'))  # Converte o valor numérico de volta para uma letra
             keyword_index += 1
     
-    return plaintext
+    return plaintext  # Retorna o texto decifrado
 
+# Função principal que é chamada quando o script é executado
 def main():
-    if len(sys.argv) != 4:
+    if len(sys.argv) != 4:  # Verifica se o número correto de argumentos foi fornecido
         print("Uso: python script.py <modo> <texto> <chave>")
         print("Modo: 1 para criptografar, 2 para descriptografar")
         return
     
-    mode = int(sys.argv[1])
-    text = sys.argv[2]
-    keyword = sys.argv[3]
+    mode = int(sys.argv[1])  # Modo de operação (1 para criptografar, 2 para descriptografar)
+    text = sys.argv[2]  # Texto a ser cifrado ou decifrado
+    keyword = sys.argv[3]  # Palavra-chave
     
     if mode == 1:
-        result = encrypt_vigenere(text, keyword)
+        result = encrypt_vigenere(text, keyword)  # Chama a função de criptografia
         print(f"Texto cifrado: {result}")
     elif mode == 2:
-        result = decrypt_vigenere(text, keyword)
+        result = decrypt_vigenere(text, keyword)  # Chama a função de descriptografia
         print(f"Texto decifrado: {result}")
     else:
         print("Modo inválido. Use 1 para criptografar e 2 para descriptografar.")
         print("Uso: python script.py <modo> <texto> <chave>")
 
 if __name__ == "__main__":
-    main()
+    main()  # Chama a função principal se o script for executado diretamente
